@@ -1,0 +1,40 @@
+Module: Telephone
+Description: A module looping Polly and Lambda together
+
+Variables:
+
+  - Var: TextForPolly
+    Description: The S3 Bucket for text
+    Scope: Lambda
+    Resource:
+      Type: AWS::S3::Bucket
+      Allow: ReadWrite
+
+  - Var: AudioForTranscribe
+    Description: The S3 Bucket for audio files
+    Scope: Lambda
+    Resource:
+      Type: AWS::S3::Bucket
+      Allow: ReadWrite
+  
+  - Var: PollyPermissions
+    Description: Permissions for Polly
+    Value: "*"
+    Resource:
+      Allow:
+        - "polly:DescribeVoices"
+        - "polly:SynthesizeSpeech"
+
+  - Var: TranscribePermissions
+    Description: Permissions for Transcribe
+    Value: "*"
+    Resource:
+      Allow:
+        - "transcribe:Get*"
+        - "transcribe:StartTranscriptionJob"
+
+Functions:
+
+ - Function: Lambda
+   Memory: 128
+   Timeout: 300

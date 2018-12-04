@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>7.2</LangVersion>
+    <RootNamespace>LSHARP201812.Lambda</RootNamespace>
+    <AWSProjectType>Lambda</AWSProjectType>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj" />
+    <PackageReference Include="AWSSDK.TranscribeService" Version="3.3.6.1" />
+    <PackageReference Include="AWSSDK.Core" Version="3.3.29.12" />
+    <PackageReference Include="AWSSDK.Lambda" Version="3.3.19" />
+    <PackageReference Include="AWSSDK.Polly" Version="3.3.9.4" />
+    <PackageReference Include="Mindtouch.LambdaSharp" Version="0.4.0" />
+    <DotNetCliToolReference Include="Amazon.Lambda.Tools" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>
