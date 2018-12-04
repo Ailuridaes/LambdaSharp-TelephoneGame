@@ -14,6 +14,8 @@ The following tools and accounts are required to complete these instructions.
 * [Install .NET Core 2.1](https://www.microsoft.com/net/download)
 
 # Level 0 Set up λ# tool
+First fork/clone the Challenge Repo then run `dotnet restore` from the `LambdaSharp-TelephoneGame/Lambda` folder
+
 The λ# CLI is installed as a [.NET Global Tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools).
 
 ```bash
@@ -36,8 +38,58 @@ Finally deploy the base code provided via the λ#
 ```bash
 dotnet lash deploy --cli-profile tylera --aws-profile devstack --tier Sandbox
 ```
+You should get output that looks like
+```bash
+MindTouch LambdaSharp CLI (v0.4.0.2) - Deploy LambdaSharp module
+Readying module for deployment tier 'tylera'
 
-To test this is working open up the Lambda console find your function named `{tier}-Telephone-Lambda-{random cloudformation-string}` And execute a test event with JSON that looks like:
+Compiling module: Module.yml
+=> Building function Lambda [netcoreapp2.1, Release]
+=> Module compilation done
+Publishing module: TelephoneGame
+=> Uploading function: s3://lambdasharptool-tylera-deploymentbucket-1ck6cr7gfo5e4/Modules/TelephoneGame/Assets/function_Lambda_B7131D5DE072900BC26205E6219607C5.zip
+=> Uploading template: s3://lambdasharptool-tylera-deploymentbucket-1ck6cr7gfo5e4/Modules/TelephoneGame/Assets/cloudformation_v1.0_AE67B75C485EB4D13CEA14735664CD3A.json
+=> Uploading manifest: s3://lambdasharptool-tylera-deploymentbucket-1ck6cr7gfo5e4/Modules/TelephoneGame/Assets/manifest_v1.0_AE67B75C485EB4D13CEA14735664CD3A.json
+Deploying stack: tylera-TelephoneGame [TelephoneGame]
+=> Stack creation initiated for tylera-TelephoneGame
+CREATE_IN_PROGRESS                  AWS::CloudFormation::Stack                              tylera-TelephoneGame (User Initiated)
+CREATE_IN_PROGRESS                  AWS::S3::Bucket                                         AudioForTranscribe
+CREATE_IN_PROGRESS                  Custom::LambdaSharpRegisterModule                       ModuleRegistration
+CREATE_IN_PROGRESS                  AWS::S3::Bucket                                         TextForPolly
+CREATE_IN_PROGRESS                  AWS::S3::Bucket                                         AudioForTranscribe (Resource creation Initiated)
+CREATE_IN_PROGRESS                  AWS::IAM::Role                                          CloudWatchLogsRole
+CREATE_IN_PROGRESS                  AWS::S3::Bucket                                         TextForPolly (Resource creation Initiated)
+CREATE_IN_PROGRESS                  AWS::IAM::Role                                          CloudWatchLogsRole (Resource creation Initiated)
+CREATE_COMPLETE                     AWS::IAM::Role                                          CloudWatchLogsRole
+CREATE_COMPLETE                     AWS::S3::Bucket                                         AudioForTranscribe
+CREATE_COMPLETE                     AWS::S3::Bucket                                         TextForPolly
+CREATE_IN_PROGRESS                  Custom::LambdaSharpRegisterModule                       ModuleRegistration (Resource creation Initiated)
+CREATE_COMPLETE                     Custom::LambdaSharpRegisterModule                       ModuleRegistration
+CREATE_IN_PROGRESS                  AWS::IAM::Role                                          ModuleRole
+CREATE_IN_PROGRESS                  AWS::IAM::Role                                          ModuleRole (Resource creation Initiated)
+CREATE_COMPLETE                     AWS::IAM::Role                                          ModuleRole
+CREATE_IN_PROGRESS                  AWS::Lambda::Function                                   Lambda
+CREATE_IN_PROGRESS                  AWS::Lambda::Function                                   Lambda (Resource creation Initiated)
+CREATE_COMPLETE                     AWS::Lambda::Function                                   Lambda
+CREATE_IN_PROGRESS                  AWS::Logs::LogGroup                                     LambdaLogGroup
+CREATE_IN_PROGRESS                  Custom::LambdaSharpRegisterFunction                     LambdaRegistration
+CREATE_IN_PROGRESS                  AWS::Logs::LogGroup                                     LambdaLogGroup (Resource creation Initiated)
+CREATE_COMPLETE                     AWS::Logs::LogGroup                                     LambdaLogGroup
+CREATE_IN_PROGRESS                  Custom::LambdaSharpRegisterFunction                     LambdaRegistration (Resource creation Initiated)
+CREATE_COMPLETE                     Custom::LambdaSharpRegisterFunction                     LambdaRegistration
+CREATE_IN_PROGRESS                  AWS::Logs::SubscriptionFilter                           LambdaLogGroupSubscription
+CREATE_IN_PROGRESS                  AWS::Logs::SubscriptionFilter                           LambdaLogGroupSubscription (Resource creation Initiated)
+CREATE_COMPLETE                     AWS::Logs::SubscriptionFilter                           LambdaLogGroupSubscription
+CREATE_COMPLETE                     AWS::CloudFormation::Stack                              tylera-TelephoneGame
+=> Stack creation finished (finished: 2018-12-04 14:14:01)
+Stack output values:
+=> ModuleName: TelephoneGame
+=> ModuleVersion: 1.0
+
+Done (duration: 00:01:20.5880550)
+```
+
+To test this is working open up the Lambda console find your function named `{tier}-TelephoneGame-Lambda-{random-cloudformation-string}` And execute a test event with JSON that looks like:
 ```
 {
     "Identifier": "StringUsedToIdentifyFiles",
@@ -110,3 +162,6 @@ The boss level is to build a solution that is capable of looping to any arbitrar
     - Figure out a way around the 300 second timeout
     - I would test on probably 5 iterations as that should exceed 300 seconds
     - This will likely require initializing new clients which means adding permissions for the new service in `Module.yml` as well as initializing the new client in the `InitialyzeAsync` method.
+
+# TEARDOWN
+Because this was all deployed via cloudformation stacks teardown is easy, first delete everything in the 2 S3 buckets. Then navigate to the cloudformation page in the AWS console, select the stack named `{tier}-TelephoneGame`, click `Actions` and then `Delete Stack`. Then delete the stack `{tier}-LambdaSharp` and optionally remove the cli profile stack named `LambdaSharpTool-{cli-profile}`

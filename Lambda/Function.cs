@@ -18,7 +18,7 @@ using Helpers;
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
 
 
-namespace LSHARP201812.Lambda
+namespace Lambda
 {
     class Function: ALambdaFunction<Message, string>
     {

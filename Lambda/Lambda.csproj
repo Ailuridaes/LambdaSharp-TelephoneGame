@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <LangVersion>7.2</LangVersion>
-    <RootNamespace>LSHARP201812.Lambda</RootNamespace>
+    <RootNamespace>Lambda</RootNamespace>
     <AWSProjectType>Lambda</AWSProjectType>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
