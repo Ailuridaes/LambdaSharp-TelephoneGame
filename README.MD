@@ -1,5 +1,4 @@
-# The Telephone Game or trying to break things for fun and profit
-
+# The λ# Telephone Game
 
 Did you ever play the game Telephone as a child, it's where a group of children sit in a circle and take turns whispering a phrase to the person to their right. With even a small group of say 5 children what the first child says and what the last child hear are two completely different phrases.
 
