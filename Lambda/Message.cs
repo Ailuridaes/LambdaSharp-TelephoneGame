@@ -32,6 +32,8 @@ namespace Helpers {
         public int Iterations { get; set; }
         public string Text { get; set; }
 
+        public string Link { get; set; }
+
         // Hi! :)
     }
 }

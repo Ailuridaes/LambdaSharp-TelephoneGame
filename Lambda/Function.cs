@@ -83,11 +83,12 @@ namespace Lambda {
 
             // Initiate Transcription Job
             var transcriptionName = $"transcribe_{suffix}";
+            var mediaUri = $"https://s3-us-east-1.amazonaws.com/{_audioBucket}/polly_{suffix}.mp3";
             var transcriptionResponse = await _transcribeClient.StartTranscriptionJobAsync(new StartTranscriptionJobRequest {
                 LanguageCode = "en-US",
                 MediaFormat = MediaFormat.Mp3,
                 Media = new Media {
-                    MediaFileUri = $"https://s3-us-east-1.amazonaws.com/{_audioBucket}/polly_{suffix}.mp3"
+                    MediaFileUri = mediaUri
                 },
                 OutputBucketName = _textBucket,
                 TranscriptionJobName = transcriptionName
@@ -121,12 +122,13 @@ namespace Lambda {
             var transcription = json["results"]["transcripts"][0]["transcript"].ToString();
             LogInfo(transcription);
 
-            if(message.Iterations >= 0) {
+            if(message.Iterations >= 0 && transcription.Length > 0) {
                 await _snsClient.PublishAsync(new PublishRequest {
                     TopicArn = _topic,
                     Message = JsonConvert.SerializeObject(new Message {
                         Iterations = message.Iterations - 1,
-                        Text = transcription
+                        Text = transcription,
+                        Link = mediaUri
                     })
                 });
             }
