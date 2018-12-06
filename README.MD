@@ -9,9 +9,9 @@ This Repo contains 2 directories `Helpers` and `Lambda` as well as a `Module.yml
 The Lambda directory contains our Lambda Function with all the boilerplate required for the λ# tool to function. It also initializes all clients.
 
 ## Helpful Links
-(.NET AWS SDK Docs)[https://docs.aws.amazon.com/sdkfornet/v3/apidocs]
-(Polly API Actions)[https://docs.aws.amazon.com/polly/latest/dg/API_Operations.html]
-(Transcribe API Actions)[https://docs.aws.amazon.com/transcribe/latest/dg/API_Operations.html]
+[.NET AWS SDK Docs](https://docs.aws.amazon.com/sdkfornet/v3/apidocs)
+[Polly API Actions](https://docs.aws.amazon.com/polly/latest/dg/API_Operations.html)
+[Transcribe API Actions](https://docs.aws.amazon.com/transcribe/latest/dg/API_Operations.html)
 
 # Pre-requisites
 The following tools and accounts are required to complete these instructions.
