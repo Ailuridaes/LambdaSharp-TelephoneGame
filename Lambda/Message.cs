@@ -29,10 +29,9 @@ namespace Helpers {
 
     public class Message {
         //--- Properties ---
-        public int? Iterations {get; set;} = 0;
-        public string Text {get; set;}
-        public string Identifier {get; set;}
-        public int Iterator {get; set;} = 0;
-        
+        public int Iterations { get; set; }
+        public string Text { get; set; }
+
+        // Hi! :)
     }
 }
