@@ -10,8 +10,11 @@ The Lambda directory contains our Lambda Function with all the boilerplate requi
 
 ## Helpful Links
 [.NET AWS SDK Docs](https://docs.aws.amazon.com/sdkfornet/v3/apidocs)
+
 [Polly API Actions](https://docs.aws.amazon.com/polly/latest/dg/API_Operations.html)
+
 [Transcribe API Actions](https://docs.aws.amazon.com/transcribe/latest/dg/API_Operations.html)
+
 
 # Pre-requisites
 The following tools and accounts are required to complete these instructions.
